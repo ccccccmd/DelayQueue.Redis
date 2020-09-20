@@ -4,7 +4,7 @@ namespace DelayedQueue.Core
 {
     public class ReadyQueue<T> where T : Job
     {
-        private const string queuePrefix = "delay-queue-bucket:";
+        private const string queuePrefix = "delay-ready-queue:";
 
         public Task PushToReadyQueue(string topic, T job)
         {

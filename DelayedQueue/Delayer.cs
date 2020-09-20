@@ -53,7 +53,7 @@ namespace DelayedQueue
 
 
 
-        async Task DeliveryToReadyQueue(string topic)
+        async Task DeliveryToReadyQueue(string topic,int butchNo=10)
         {
             var jobPool = new JobPool<T>();
 
@@ -65,7 +65,7 @@ namespace DelayedQueue
             {
                 try
                 {
-                    var jobids = await bucket.GetExpireJobsAsync(topic);
+                    var jobids = await bucket.GetExpireJobsAsync(topic,butchNo);
                     if (jobids == null || jobids.Length == 0)
                     {
                         await Task.Delay(2000);
@@ -114,9 +114,8 @@ namespace DelayedQueue
                         continue;
                     }
 
-                    await callback(job);
-
                     await jobPool.DelJobAsync(job.JobId);
+                    await callback(job);
                 }
                 catch (Exception e)
                 {
