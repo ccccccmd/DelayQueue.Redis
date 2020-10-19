@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DelayedQueue.Abstractions;
 
 namespace DelayedQueue.Core
 {
@@ -10,18 +11,18 @@ namespace DelayedQueue.Core
         public Task<bool> PutJobAsync(T job)
         {
             //检验jobid是否全局唯一？
-            return RedisHelper.SetAsync($"{_prefix}{job.JobId}", job);
+            return DelayedRedisHelper.SetAsync($"{_prefix}{job.JobId}", job);
         }
 
 
         public Task<T> GetJobAsync(string jobId)
         {
-            return RedisHelper.GetAsync<T>($"{_prefix}{jobId}");
+            return DelayedRedisHelper.GetAsync<T>($"{_prefix}{jobId}");
         }
 
         public Task<long> DelJobAsync(string jobId)
         {
-            return RedisHelper.DelAsync($"{_prefix}{jobId}");
+            return DelayedRedisHelper.DelAsync($"{_prefix}{jobId}");
         }
 
 

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using DelayedQueue.Abstractions;
 
 namespace DelayedQueue.Core
 {
@@ -8,13 +9,13 @@ namespace DelayedQueue.Core
 
         public Task PushToReadyQueue(string topic, T job)
         {
-            return RedisHelper.RPushAsync($"{queuePrefix}{topic}", job);
+            return DelayedRedisHelper.RPushAsync($"{queuePrefix}{topic}", job);
         }
 
 
         public Task<T> GetJobFromReadyQueue(string topic, int timeoutSeconds)
         {
-            var data = RedisHelper.BLPop<T>(timeoutSeconds, $"{queuePrefix}{topic}");
+            var data = DelayedRedisHelper.BLPop<T>(timeoutSeconds, $"{queuePrefix}{topic}");
             return Task.FromResult(data);
         }
     }

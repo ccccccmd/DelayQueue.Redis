@@ -16,6 +16,8 @@
       <e p="DelayedQueue" t="IncludeRecursive">
         <e p="Abstractions" t="Include">
           <e p="IDelayer.cs" t="Include" />
+          <e p="Job.cs" t="Include" />
+          <e p="JobMessage.cs" t="Include" />
         </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="Core" t="Include">
@@ -23,9 +25,10 @@
           <e p="JobPool.cs" t="Include" />
           <e p="ReadyQueue.cs" t="Include" />
         </e>
+        <e p="DelayedMessageProcessor.cs" t="Include" />
         <e p="DelayedQueue.csproj" t="IncludeRecursive" />
+        <e p="DelayedRedisHelper.cs" t="Include" />
         <e p="Delayer.cs" t="Include" />
-        <e p="Job.cs" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
@@ -33,6 +36,7 @@
             </e>
           </e>
         </e>
+        <e p="RegisterDealyedQueueExtension.cs" t="Include" />
         <e p="ServiceExtensions.cs" t="Include" />
       </e>
       <e p="DelayedQueue.Redis.sln" t="IncludeFlat" />
@@ -47,6 +51,8 @@
             </e>
           </e>
         </e>
+        <e p="TestJob.cs" t="Include" />
+        <e p="TestJobHandler.cs" t="Include" />
       </e>
       <e p="packages" t="ExcludeRecursive" />
     </e>
