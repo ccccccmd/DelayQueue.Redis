@@ -49,7 +49,7 @@ namespace DelayedQueue
                     var jobids = await bucket.GetExpireJobsAsync(topic, 10);
                     if (jobids == null || jobids.Length == 0)
                     {
-                        await Task.Delay(2000);
+                        await Task.Delay(500);
                         continue;
                     }
 
@@ -72,7 +72,7 @@ namespace DelayedQueue
                 {
                     _logger.LogError(e, $"DeliveryToReadyQueue Error;Topic:{topic}");
 
-                    await Task.Delay(10000);
+                    await Task.Delay(1000);
                 }
             }
         }
@@ -91,10 +91,10 @@ namespace DelayedQueue
             {
                 try
                 {
-                    var job = await readyQueue.GetJobFromReadyQueue(  typeof(T).Name, 3);
+                    var job = await readyQueue.GetJobFromReadyQueue(typeof(T).Name, 3);
                     if (job == null)
                     {
-                        await Task.Delay(2000);
+                        await Task.Delay(500);
                         continue;
                     }
 
@@ -106,9 +106,9 @@ namespace DelayedQueue
                 }
                 catch (Exception e)
                 {
-                    _logger.LogError(e, $"ConsumeReadyJob Error; Topic:{ typeof(T).Name}");
+                    _logger.LogError(e, $"ConsumeReadyJob Error; Topic:{typeof(T).Name}");
 
-                    await Task.Delay(10000);
+                    await Task.Delay(1000);
                 }
             }
         }

@@ -16,7 +16,7 @@ namespace DelayedQueue
 
             services.AddSingleton(typeof(IDelayer<>), typeof(Delayer<>));
 
-            services.AddSingleton(typeof(IDelayedMessageProcessor<>), typeof(IDelayedMessageProcessor<>));
+            services.AddSingleton(typeof(IDelayedMessageProcessor<>), typeof(DelayedMessageProcessor<>));
 
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
