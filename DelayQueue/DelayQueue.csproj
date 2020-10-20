@@ -3,14 +3,13 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>DelayQueue.Redis</PackageId>
-        <Version>0.1.3</Version>
+        <Version>0.1.4</Version>
         <Title>DelayQueue.Redis</Title>
         <Authors>ccccccmd</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageTags>DelayQueue 延时队列 Delay Queue</PackageTags>
         <RepositoryUrl>https://github.com/ccccccmd/DelayQueue.Redis</RepositoryUrl>
         <Description>A dealy queue based on redis</Description>
-        <PackageVersion>0.1.4</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
