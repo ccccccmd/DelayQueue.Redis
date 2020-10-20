@@ -3,4 +3,5 @@
   &lt;Assembly Path="C:\Users\Admin\.nuget\packages\figgle\0.3.0\lib\netstandard1.3\Figgle.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Admin\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\3.1.8\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
-	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=66ee04b4_002D0bdb_002D4724_002D8f4f_002Dbff4a35bcfc6_0023DelayQueue_002ERedis_002ESample/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
+	
+	</wpf:ResourceDictionary>
