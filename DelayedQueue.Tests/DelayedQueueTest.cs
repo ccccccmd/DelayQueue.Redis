@@ -23,7 +23,6 @@ namespace DelayedQueue.Tests
             service.AddDealyedQueueService(
                 "192.168.1.55:6379,password=ed4c39b015b0e46f074dbhWuEoUiZ02qWbp6d640999f25c68a932fef815,defaultDatabase=14");
 
-           
 
             _serviceProvider = service.AddLogging(builder => { builder.AddConsole(); }).BuildServiceProvider();
 
@@ -76,10 +75,11 @@ namespace DelayedQueue.Tests
                 await delayer.PutDealyJob(
                     new TestJob(TimeSpan.FromSeconds(1), "abcde====" + j, j.ToString()));
             }
-            
-            Thread.Sleep(1000 * 130);
+
+            Thread.Sleep(1000 * 20);
             var num = DelayedRedisHelper.LLen(nameof(TestJobHandler));
             _testOutputHelper.WriteLine("消费：" + num);
+            Assert.True(num == 100);
             _testOutputHelper.WriteLine("ok");
         }
     }
