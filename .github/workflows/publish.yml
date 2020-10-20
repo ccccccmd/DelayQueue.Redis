@@ -1,10 +1,10 @@
-name: publish DelayedQueue.Redis to nuget
+name: publish DelayQueue.Redis to nuget
 on:
   # push:
   #   branches:
   #     - master # Your default release branch
   #   paths:
-  #     - 'DelayedQueue/**'
+  #     - 'DelayQueue/**'
   workflow_dispatch:
 jobs:
   publish:
@@ -24,7 +24,7 @@ jobs:
       - name: publish on version change
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: DelayedQueue/DelayedQueue.csproj # Relative to repository root
+          PROJECT_FILE_PATH: DelayQueue/DelayQueue.csproj # Relative to repository root
           # VERSION_FILE_PATH: Directory.Build.props # Filepath with version info, relative to repository root. Defaults to project file
           VERSION_REGEX: <Version>(.*)<\/Version> # Regex pattern to extract version info in a capturing group
           TAG_COMMIT: true # Flag to enable / disable git tagging
