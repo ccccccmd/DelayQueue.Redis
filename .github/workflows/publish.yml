@@ -1,10 +1,11 @@
 name: publish DelayedQueue.Redis to nuget
 on:
-  push:
-    branches:
-      - master # Your default release branch
-    paths:
-      - 'DelayedQueue/**'
+  # push:
+  #   branches:
+  #     - master # Your default release branch
+  #   paths:
+  #     - 'DelayedQueue/**'
+  workflow_dispatch:
 jobs:
   publish:
     name: list on nuget
