@@ -13,7 +13,7 @@ namespace DelayedQueue.Core
         {
             var delaySec = GetDelaySeconds(delay);
 
-            return RedisHelper.ZAddAsync($"{queuePrefix}{topic}", (delaySec, jobId));
+            return DelayedRedisHelper.ZAddAsync($"{queuePrefix}{topic}", (delaySec, jobId));
         }
 
 
@@ -26,22 +26,22 @@ namespace DelayedQueue.Core
 
 
 
-        public Task<string[]> GetExpireJobsAsync(string topic, long limit = 1)
+        public Task<string[]> GetExpireJobsAsync(string topic, long limit)
         {
-            return RedisHelper.ZRangeByScoreAsync<string>($"{queuePrefix}{topic}", decimal.Zero,
+            return DelayedRedisHelper.ZRangeByScoreAsync<string>($"{queuePrefix}{topic}", decimal.Zero,
                 GetDelaySeconds(TimeSpan.Zero), limit);
         }
 
 
         public Task<long> RemoveJobAsync(string topic, string jobId)
         {
-            return RedisHelper.ZRemAsync($"{queuePrefix}{topic}", jobId);
+            return DelayedRedisHelper.ZRemAsync($"{queuePrefix}{topic}", jobId);
         }
 
 
         public async Task<DateTime?> GetNextJobExecTimeAsync(string topic)
         {
-            var items = await RedisHelper.ZRangeByScoreWithScoresAsync<string>($"{queuePrefix}{topic}", decimal.Zero,
+            var items = await DelayedRedisHelper.ZRangeByScoreWithScoresAsync<string>($"{queuePrefix}{topic}", decimal.Zero,
                 decimal.MaxValue
                 , 1);
 
