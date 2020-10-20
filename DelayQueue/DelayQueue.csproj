@@ -10,6 +10,7 @@
         <PackageTags>DelayQueue 延时队列 Delay Queue</PackageTags>
         <RepositoryUrl>https://github.com/ccccccmd/DelayQueue.Redis</RepositoryUrl>
         <Description>A dealy queue based on redis</Description>
+        <PackageVersion>0.1.4</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

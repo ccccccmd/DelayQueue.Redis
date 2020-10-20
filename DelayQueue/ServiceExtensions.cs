@@ -9,7 +9,7 @@ namespace DelayQueue
 {
     public static class ServiceExtensions
     {
-        public static void AddDealyedQueueService(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDealyQueueService(this IServiceCollection services, IConfiguration configuration)
         {
             DelayedRedisHelper.Initialization(new CSRedisClient(configuration.GetSection("DelayQueue:Redis").Value));
 
@@ -23,7 +23,7 @@ namespace DelayQueue
         }
 
 
-        public static void AddDealyedQueueService(this IServiceCollection services, string delayQueRedis)
+        public static void AddDealyQueueService(this IServiceCollection services, string delayQueRedis)
         {
             DelayedRedisHelper.Initialization(new CSRedisClient(delayQueRedis));
 
