@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using DelayQueue.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,8 +27,10 @@ namespace DelayQueue
             }
 
             var processor = serviceProvider.GetRequiredService<IDelayedMessageProcessor<TJob>>();
-            Task.Run(async () => await processor.DeliveryToReadyQueue());
-            Task.Run(async () => await processor.ConsumeReadyJob());
+
+            new Thread(async () => await processor.DeliveryToReadyQueue()).Start();
+            new Thread(async () => await processor.ConsumeReadyJob()).Start();
+
 
             DelayQueues.Add(topic);
 

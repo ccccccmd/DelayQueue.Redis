@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>DelayQueue.Redis</PackageId>
-        <Version>0.1.4</Version>
+        <Version>0.1.5</Version>
         <Title>DelayQueue.Redis</Title>
         <Authors>ccccccmd</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
