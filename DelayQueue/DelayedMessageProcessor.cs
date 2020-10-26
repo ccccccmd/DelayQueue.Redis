@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DelayQueue.Abstractions;
 using DelayQueue.Core;
@@ -21,9 +22,9 @@ namespace DelayQueue
     {
 
         private readonly ILogger<DelayedMessageProcessor<T>> _logger;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly IServiceScopeFactory _serviceProvider;
 
-        public DelayedMessageProcessor(ILogger<DelayedMessageProcessor<T>> logger, IServiceProvider serviceProvider)
+        public DelayedMessageProcessor(ILogger<DelayedMessageProcessor<T>> logger, IServiceScopeFactory serviceProvider)
         {
             _logger = logger;
             _serviceProvider = serviceProvider;
@@ -80,9 +81,6 @@ namespace DelayQueue
 
         public async Task ConsumeReadyJob()
         {
-            var mediator = _serviceProvider.GetRequiredService<IMediator>();
-
-
             var jobPool = new JobPool<T>();
 
             var readyQueue = new ReadyQueue<T>();
@@ -101,7 +99,8 @@ namespace DelayQueue
                     await jobPool.DelJobAsync(job.JobId);
 
                     var message = new JobMessage<T>(job);
-
+                    using var scope = _serviceProvider.CreateScope();
+                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                     await mediator.Send(message);
                 }
                 catch (Exception e)
