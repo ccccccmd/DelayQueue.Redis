@@ -26,7 +26,7 @@ namespace DelayQueue.Redis.Sample.Controllers
             var jobid = Guid.NewGuid().ToString();
 
             var delaySeconds = new Random().Next(1, 10);
-            await delayer.PutDealyJob(
+            await delayer.PutDelayJob(
                 new TestJob(TimeSpan.FromSeconds(delaySeconds), "abcde====" + jobid, jobid));
 
             return Content($"{jobid},{delaySeconds}s后执行,time:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");

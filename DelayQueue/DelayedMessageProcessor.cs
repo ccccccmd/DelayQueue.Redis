@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using DelayQueue.Abstractions;
 using DelayQueue.Core;

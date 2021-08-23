@@ -1,23 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
         <PackageId>DelayQueue.Redis</PackageId>
-        <Version>0.1.6</Version>
+        <Version>0.1.7</Version>
         <Title>DelayQueue.Redis</Title>
         <Authors>ccccccmd</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageTags>DelayQueue 延时队列 Delay Queue</PackageTags>
         <RepositoryUrl>https://github.com/ccccccmd/DelayQueue.Redis</RepositoryUrl>
-        <Description>A dealy queue based on redis</Description>
+        <Description>A delay queue based on redis</Description>
+        <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="CSRedisCore" Version="3.6.5" />
-      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.9" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
+      <PackageReference Include="CSRedisCore" Version="3.6.6" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     </ItemGroup>
 
 </Project>

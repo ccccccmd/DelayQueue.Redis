@@ -20,14 +20,14 @@ namespace DelayQueue.Tests
             var service = new ServiceCollection();
 
 
-            service.AddDealyQueueService(
+            service.AddDelayQueueService(
                 "192.168.1.55:6379,password=ed4c39b015b0e46f074dbhWuEoUiZ02qWbp6d640999f25c68a932fef815,defaultDatabase=14");
 
 
             _serviceProvider = service.AddLogging(builder => { builder.AddConsole(); }).BuildServiceProvider();
 
 
-            _serviceProvider.RegisterDealyQueueJob<TestJob>();
+            _serviceProvider.RegisterDelayQueueJob<TestJob>();
         }
 
         private readonly ITestOutputHelper _testOutputHelper;
@@ -45,7 +45,7 @@ namespace DelayQueue.Tests
             var delayer = _serviceProvider.GetRequiredService<IDelayer<TestJob>>();
 
 
-            await delayer.PutDealyJob(
+            await delayer.PutDelayJob(
                 new TestJob(TimeSpan.FromSeconds(10), "abcde====" + jobid, jobid));
 
             var jobpool = await new JobPool<TestJob>().GetJobAsync(jobid);
@@ -72,12 +72,12 @@ namespace DelayQueue.Tests
 
             for (int j = 0; j < 100; j++)
             {
-                await delayer.PutDealyJob(
+                await delayer.PutDelayJob(
                     new TestJob(TimeSpan.FromSeconds(1), "abcde====" + j, j.ToString()));
             }
 
             Thread.Sleep(1000 * 20);
-            var num = DelayedRedisHelper.LLen(nameof(TestJobHandler));
+            var num = await DelayedRedisHelper.LLenAsync(nameof(TestJobHandler));
             _testOutputHelper.WriteLine("消费：" + num);
             Assert.True(num == 100);
             _testOutputHelper.WriteLine("ok");

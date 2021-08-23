@@ -5,8 +5,8 @@ namespace DelayQueue.Abstractions
 {
     public interface IDelayer<in T> where T : Job
     {
-        Task PutDealyJob(T job);
+        Task PutDelayJob(T job);
         
-        Task RemoveDealyJob(string jobId);
+        Task RemoveDelayJob(string jobId);
     }
 }

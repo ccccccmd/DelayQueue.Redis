@@ -8,11 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace DelayQueue
 {
-    public static class RegisterDealyQueueExtension
+    public static class RegisterDelayQueueExtension
     {
         private static readonly ConcurrentBag<string> DelayQueues = new ConcurrentBag<string>();
 
-        public static IServiceProvider RegisterDealyQueueJob<TJob>(this IServiceProvider serviceProvider)
+        public static IServiceProvider RegisterDelayQueueJob<TJob>(this IServiceProvider serviceProvider)
             where TJob : Job
         {
             var topic = typeof(TJob).Name;

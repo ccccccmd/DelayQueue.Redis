@@ -21,7 +21,7 @@ namespace DelayQueue.Redis.Sample
         {
             services.AddControllersWithViews();
 
-            services.AddDealyQueueService(Configuration);
+            services.AddDelayQueueService(Configuration);
             //services.AddDealyQueueService(
             //  "192.168.1.55:6379,password=ed4c39b015b0e46f074dbhWuEoUiZ02qWbp6d640999f25c68a932fef815,defaultDatabase=14");
         }
@@ -29,7 +29,7 @@ namespace DelayQueue.Redis.Sample
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ApplicationServices.RegisterDealyQueueJob<TestJob>();
+            app.ApplicationServices.RegisterDelayQueueJob<TestJob>();
 
             if (env.IsDevelopment())
             {

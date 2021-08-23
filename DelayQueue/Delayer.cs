@@ -8,7 +8,7 @@ namespace DelayQueue
     public class Delayer<T> : IDelayer<T> where T : Job
     {
 
-        public async Task PutDealyJob(T job)
+        public async Task PutDelayJob(T job)
         {
             string topic = typeof(T).Name;
 
@@ -22,7 +22,7 @@ namespace DelayQueue
             await new Bucket().PushJobToBucketAsync(topic, job.JobId, job.Delay);
         }
 
-        public async Task RemoveDealyJob(string jobId)
+        public async Task RemoveDelayJob(string jobId)
         {
             string topic = typeof(T).Name;
             if (string.IsNullOrWhiteSpace(topic))
