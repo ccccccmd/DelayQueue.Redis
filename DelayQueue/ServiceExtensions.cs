@@ -35,7 +35,5 @@ namespace DelayQueue
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
         }
-
-
     }
 }

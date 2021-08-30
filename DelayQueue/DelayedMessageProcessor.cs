@@ -8,10 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace DelayQueue
 {
-
     public interface IDelayedMessageProcessor<T> where T : Job
     {
-
         Task DeliveryToReadyQueue();
 
         Task ConsumeReadyJob();
@@ -19,7 +17,6 @@ namespace DelayQueue
 
     public class DelayedMessageProcessor<T> : IDelayedMessageProcessor<T> where T : Job
     {
-
         private readonly ILogger<DelayedMessageProcessor<T>> _logger;
         private readonly IServiceScopeFactory _serviceProvider;
 
@@ -46,16 +43,16 @@ namespace DelayQueue
                 try
                 {
                     // todo load batchno from config options
-                    var jobids = await bucket.GetExpireJobsAsync(topic, 10);
-                    if (jobids == null || jobids.Length == 0)
+                    var jobIds = await bucket.GetExpireJobsAsync(topic, 10);
+                    if (jobIds == null || jobIds.Length == 0)
                     {
                         await Task.Delay(500);
                         continue;
                     }
 
-                    foreach (var jobid in jobids)
+                    foreach (var jobId in jobIds)
                     {
-                        var job = await jobPool.GetJobAsync(jobid);
+                        var job = await jobPool.GetJobAsync(jobId);
 
 
                         if (job != null)
@@ -65,7 +62,7 @@ namespace DelayQueue
                         }
 
 
-                        await bucket.RemoveJobAsync(topic, jobid);
+                        await bucket.RemoveJobAsync(topic, jobId);
                     }
                 }
                 catch (Exception e)

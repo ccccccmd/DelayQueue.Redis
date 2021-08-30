@@ -6,9 +6,6 @@ using Microsoft.Extensions.Logging;
 
 namespace DelayQueue.Tests
 {
-
-  
-
     public class TestJobHandler : IRequestHandler<JobMessage<TestJob>, bool>
     {
         private readonly ILogger<TestJobHandler> _logger;

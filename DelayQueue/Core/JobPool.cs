@@ -5,7 +5,6 @@ namespace DelayQueue.Core
 {
     public class JobPool<T> where T : Job
     {
-
         private const string _prefix = "delay-queue-jobpool:";
 
         public Task<bool> PutJobAsync(T job)
@@ -24,9 +23,5 @@ namespace DelayQueue.Core
         {
             return DelayedRedisHelper.DelAsync($"{_prefix}{jobId}");
         }
-
-
-
-
     }
 }

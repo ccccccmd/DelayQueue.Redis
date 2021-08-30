@@ -5,8 +5,6 @@ namespace DelayQueue.Core
 {
     public class Bucket
     {
-
-
         private const string queuePrefix = "delay-queue-bucket:";
 
         public Task<long> PushJobToBucketAsync(string topic, string jobId, TimeSpan delay)
@@ -17,13 +15,10 @@ namespace DelayQueue.Core
         }
 
 
-
-
         private decimal GetDelaySeconds(TimeSpan delay)
         {
             return new DateTimeOffset(DateTime.Now.Add(delay).ToUniversalTime()).ToUnixTimeSeconds();
         }
-
 
 
         public Task<string[]> GetExpireJobsAsync(string topic, long limit)
@@ -41,7 +36,8 @@ namespace DelayQueue.Core
 
         public async Task<DateTime?> GetNextJobExecTimeAsync(string topic)
         {
-            var items = await DelayedRedisHelper.ZRangeByScoreWithScoresAsync<string>($"{queuePrefix}{topic}", decimal.Zero,
+            var items = await DelayedRedisHelper.ZRangeByScoreWithScoresAsync<string>($"{queuePrefix}{topic}",
+                decimal.Zero,
                 decimal.MaxValue
                 , 1);
 
@@ -50,6 +46,5 @@ namespace DelayQueue.Core
 
             return DateTimeOffset.FromUnixTimeSeconds(long.Parse(items[0].score.ToString("0000"))).LocalDateTime;
         }
-
     }
 }

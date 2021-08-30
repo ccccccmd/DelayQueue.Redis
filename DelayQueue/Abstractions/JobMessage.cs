@@ -8,7 +8,8 @@ namespace DelayQueue.Abstractions
         {
             Data = data;
         }
-        public TJob Data { get;  }
+
+        public TJob Data { get; }
         public string Topic => typeof(TJob).Name;
     }
 }

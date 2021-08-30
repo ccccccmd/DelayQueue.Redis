@@ -1,11 +1,9 @@
 ﻿using System;
-
 using System.Threading.Tasks;
 using DelayQueue.Abstractions;
 using DelayQueue.Redis.Sample.DelayJob;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
 
 namespace DelayQueue.Redis.Sample.Controllers
 {
@@ -18,7 +16,6 @@ namespace DelayQueue.Redis.Sample.Controllers
             _logger = logger;
         }
 
-     
 
         [HttpGet]
         public async Task<IActionResult> GenDelayJob([FromServices] IDelayer<TestJob> delayer)
@@ -31,6 +28,5 @@ namespace DelayQueue.Redis.Sample.Controllers
 
             return Content($"{jobid},{delaySeconds}s后执行,time:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
         }
-
     }
 }

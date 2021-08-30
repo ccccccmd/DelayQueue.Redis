@@ -9,12 +9,9 @@ namespace DelayQueue.Redis.Sample.DelayJob
 {
     public class TestJob : Job
     {
-
-
-
         public TestJob(TimeSpan delay, string body, string jobid) : base(delay, body)
         {
-            this.JobId = jobid;
+            JobId = jobid;
         }
 
         public sealed override string JobId { get; set; }
@@ -35,7 +32,7 @@ namespace DelayQueue.Redis.Sample.DelayJob
             var data = request.Data;
 
             _logger.LogInformation(
-                $"TestJobHandler消费;Topic:{{Topic}},JobId:{{JobId}},Body:{{Body}}," +
+                "TestJobHandler消费;Topic:{Topic},JobId:{JobId},Body:{Body}," +
                 $"time:{DateTime.Now:yyyy-MM-dd HH:mm:ss}", request.Topic,
                 data.JobId, data.Body);
 

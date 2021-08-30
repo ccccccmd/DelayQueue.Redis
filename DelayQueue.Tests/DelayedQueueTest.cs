@@ -12,6 +12,9 @@ namespace DelayQueue.Tests
 {
     public class DelayQueueTest
     {
+        private readonly IServiceProvider _serviceProvider;
+
+        private readonly ITestOutputHelper _testOutputHelper;
 
         public DelayQueueTest(ITestOutputHelper testOutputHelper)
         {
@@ -29,13 +32,6 @@ namespace DelayQueue.Tests
 
             _serviceProvider.RegisterDelayQueueJob<TestJob>();
         }
-
-        private readonly ITestOutputHelper _testOutputHelper;
-
-
-
-
-        private readonly IServiceProvider _serviceProvider;
 
         [Fact]
         public async Task shou_add_to_bucket()
@@ -70,7 +66,7 @@ namespace DelayQueue.Tests
 
             var delayer = _serviceProvider.GetRequiredService<IDelayer<TestJob>>();
 
-            for (int j = 0; j < 100; j++)
+            for (var j = 0; j < 100; j++)
             {
                 await delayer.PutDelayJob(
                     new TestJob(TimeSpan.FromSeconds(1), "abcde====" + j, j.ToString()));
@@ -83,11 +79,4 @@ namespace DelayQueue.Tests
             _testOutputHelper.WriteLine("ok");
         }
     }
-
-
-
-
-
-
-
 }

@@ -2,7 +2,6 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using DelayQueue.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +9,7 @@ namespace DelayQueue
 {
     public static class RegisterDelayQueueExtension
     {
-        private static readonly ConcurrentBag<string> DelayQueues = new ConcurrentBag<string>();
+        private static readonly ConcurrentBag<string> DelayQueues = new();
 
         public static IServiceProvider RegisterDelayQueueJob<TJob>(this IServiceProvider serviceProvider)
             where TJob : Job
@@ -18,7 +17,7 @@ namespace DelayQueue
             var topic = typeof(TJob).Name;
             if (string.IsNullOrWhiteSpace(topic))
             {
-                throw new ArgumentException($"异常的Topic");
+                throw new ArgumentException("异常的Topic");
             }
 
             if (DelayQueues.Contains(topic))

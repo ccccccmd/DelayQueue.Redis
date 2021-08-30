@@ -7,14 +7,13 @@ namespace DelayQueue
 {
     public class Delayer<T> : IDelayer<T> where T : Job
     {
-
         public async Task PutDelayJob(T job)
         {
             string topic = typeof(T).Name;
 
             if (string.IsNullOrWhiteSpace(topic))
             {
-                throw new ArgumentException($"异常的Topic");
+                throw new ArgumentException("异常的Topic");
             }
 
             await new JobPool<Job>().PutJobAsync(job);
@@ -27,7 +26,7 @@ namespace DelayQueue
             string topic = typeof(T).Name;
             if (string.IsNullOrWhiteSpace(topic))
             {
-                throw new ArgumentException($"异常的Topic");
+                throw new ArgumentException("异常的Topic");
             }
 
             if (await new JobPool<Job>().DelJobAsync(jobId) > 0)
@@ -35,11 +34,5 @@ namespace DelayQueue
                 await new Bucket().RemoveJobAsync(topic, jobId);
             }
         }
-
-
-
-
-
-
     }
 }
