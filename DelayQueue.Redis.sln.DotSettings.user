@@ -3,5 +3,11 @@
   &lt;Assembly Path="C:\Users\Admin\.nuget\packages\figgle\0.3.0\lib\netstandard1.3\Figgle.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\Admin\.nuget\packages\microsoft.extensions.dependencyinjection.abstractions\3.1.8\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0e24508f_002Dd4b8_002D4444_002Da00e_002D2a8fcda4ee46/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="shou_add_to_bucket" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::71A14098-A9C2-4F35-A793-77584B350D80::net5.0::DelayQueue.Tests.DelayQueueTest.shou_add_to_bucket&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::71A14098-A9C2-4F35-A793-77584B350D80::net5.0::DelayQueue.Tests.DelayQueueTest.should_consume_delay_job&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	</wpf:ResourceDictionary>

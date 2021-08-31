@@ -23,14 +23,14 @@ namespace DelayQueue.Tests
             var service = new ServiceCollection();
 
 
-            service.AddDelayQueueService(
+            service.AddDelayQueue(
                 "192.168.1.55:6379,password=ed4c39b015b0e46f074dbhWuEoUiZ02qWbp6d640999f25c68a932fef815,defaultDatabase=14");
 
 
             _serviceProvider = service.AddLogging(builder => { builder.AddConsole(); }).BuildServiceProvider();
 
 
-            _serviceProvider.RegisterDelayQueueJob<TestJob>();
+            _serviceProvider.UseDelayQueue();
         }
 
         [Fact]

@@ -1,4 +1,3 @@
-using DelayQueue.Redis.Sample.DelayJob;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,15 +20,15 @@ namespace DelayQueue.Redis.Sample
         {
             services.AddControllersWithViews();
 
-            services.AddDelayQueueService(Configuration);
-            //services.AddDealyQueueService(
+            services.AddDelayQueue(Configuration);
+            //services.AddDealyQueue(
             //  "192.168.1.55:6379,password=ed4c39b015b0e46f074dbhWuEoUiZ02qWbp6d640999f25c68a932fef815,defaultDatabase=14");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.ApplicationServices.RegisterDelayQueueJob<TestJob>();
+            app.ApplicationServices.UseDelayQueue();
 
             if (env.IsDevelopment())
             {
