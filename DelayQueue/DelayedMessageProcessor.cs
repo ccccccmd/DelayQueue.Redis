@@ -8,11 +8,15 @@ using Microsoft.Extensions.Logging;
 
 namespace DelayQueue
 {
-    public interface IDelayedMessageProcessor<T> where T : Job
+    public interface IDelayedMessageProcessor
     {
         Task DeliveryToReadyQueue();
 
         Task ConsumeReadyJob();
+    }
+
+    public interface IDelayedMessageProcessor<T> : IDelayedMessageProcessor where T : Job
+    {
     }
 
     public class DelayedMessageProcessor<T> : IDelayedMessageProcessor<T> where T : Job

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using CSRedis;
 using DelayQueue.Abstractions;
 using MediatR;
@@ -9,7 +11,7 @@ namespace DelayQueue
 {
     public static class ServiceExtensions
     {
-        public static void AddDelayQueueService(this IServiceCollection services, IConfiguration configuration)
+        public static void AddDelayQueue(this IServiceCollection services, IConfiguration configuration)
         {
             DelayedRedisHelper.Initialization(new CSRedisClient(configuration.GetSection("DelayQueue:Redis").Value));
 
@@ -23,7 +25,7 @@ namespace DelayQueue
         }
 
 
-        public static void AddDelayQueueService(this IServiceCollection services, string delayQueRedis)
+        public static void AddDelayQueue(this IServiceCollection services, string delayQueRedis)
         {
             DelayedRedisHelper.Initialization(new CSRedisClient(delayQueRedis));
 
@@ -34,6 +36,24 @@ namespace DelayQueue
 
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+
+        public static void UseDelayQueue(this IServiceProvider serviceProvider)
+        {
+            var jobsType = AppDomain.CurrentDomain.GetAssemblies().Where(c => !c.IsDynamic)
+                .SelectMany(c => c.GetTypes())
+                .Where(c => typeof(Job).IsAssignableFrom(c) && !c.IsAbstract).ToList();
+
+            foreach (var job in jobsType)
+            {
+                var processorType = typeof(IDelayedMessageProcessor<>).MakeGenericType(job);
+
+                var processor = serviceProvider.GetService(processorType) as IDelayedMessageProcessor;
+
+                new Thread(async () => await processor.DeliveryToReadyQueue()).Start();
+                new Thread(async () => await processor.ConsumeReadyJob()).Start();
+            }
         }
     }
 }

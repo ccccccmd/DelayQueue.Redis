@@ -6,10 +6,11 @@
         <Title>DelayQueue.Redis</Title>
         <Authors>ccccccmd</Authors>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageTags>DelayQueue 延时队列 Delay Queue</PackageTags>
+        <PackageTags>DelayQueue 延时队列 Delay Queue RedisQueue</PackageTags>
         <RepositoryUrl>https://github.com/ccccccmd/DelayQueue.Redis</RepositoryUrl>
         <Description>A delay queue based on redis</Description>
         <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+        <PackageVersion>0.1.8</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
