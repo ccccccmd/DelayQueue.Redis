@@ -43,7 +43,7 @@
         }
     }
 
-### AddDelayQueue
+### 添加
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -54,7 +54,7 @@
         //  "127.0.0.1:6379,password=ed4c3f25c68a932fef815,defaultDatabase=1");
     }
 
-### UseDelayQueue
+### 使用
 
      public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
      {
