@@ -4,11 +4,13 @@
 
 
 
-### 安装 nuget 包
+## 使用
+
+#### 安装 Nuget 包
 
 > dotnet add package DelayQueue.Redis
 
-### 定义作业
+#### 定义作业
 
     public class TestJob : Job
     {
@@ -43,7 +45,22 @@
         }
     }
 
-### 添加
+#### 发布延时作业
+
+
+     public async Task<IActionResult> PubDelayJob([FromServices] IDelayer<TestJob> delayer)
+     {
+         var jobid = Guid.NewGuid().ToString();
+
+         var delaySeconds = new Random().Next(1, 10);
+         await delayer.PutDelayJob(
+             new TestJob(TimeSpan.FromSeconds(delaySeconds), "abcde====" + jobid, jobid));
+
+         return Content($"{jobid},{delaySeconds}s后执行,time:{DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+     }
+
+
+#### 配置
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -54,13 +71,13 @@
         //  "127.0.0.1:6379,password=ed4c3f25c68a932fef815,defaultDatabase=1");
     }
 
-### 使用
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        app.ApplicationServices.UseDelayQueue();	
+	
+	}
 
-     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-     {
-         app.ApplicationServices.UseDelayQueue();	
-	 
-	 }
+
 
 
 
