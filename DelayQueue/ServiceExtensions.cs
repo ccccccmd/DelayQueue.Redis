@@ -13,15 +13,7 @@ namespace DelayQueue
     {
         public static void AddDelayQueue(this IServiceCollection services, IConfiguration configuration)
         {
-            DelayedRedisHelper.Initialization(new CSRedisClient(configuration.GetSection("DelayQueue:Redis").Value));
-
-
-            services.AddSingleton(typeof(IDelayer<>), typeof(Delayer<>));
-
-            services.AddSingleton(typeof(IDelayedMessageProcessor<>), typeof(DelayedMessageProcessor<>));
-
-
-            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+            AddDelayQueue(services, configuration.GetSection("DelayQueue:Redis").Value);
         }
 
 
@@ -37,8 +29,7 @@ namespace DelayQueue
 
             services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
         }
-
-
+        
         public static void UseDelayQueue(this IServiceProvider serviceProvider)
         {
             var jobsType = AppDomain.CurrentDomain.GetAssemblies().Where(c => !c.IsDynamic)

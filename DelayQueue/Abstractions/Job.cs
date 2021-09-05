@@ -15,6 +15,9 @@ namespace DelayQueue.Abstractions
         /// </summary>
         public virtual string JobId { get; set; } = Guid.NewGuid().ToString();
 
+        /// <summary>
+        /// 延时触发时间
+        /// </summary>
         public TimeSpan Delay { get; }
 
         public string Body { get; }

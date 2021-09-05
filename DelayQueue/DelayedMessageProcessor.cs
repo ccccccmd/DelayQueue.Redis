@@ -5,16 +5,10 @@ using DelayQueue.Core;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DelayQueue
 {
-    public interface IDelayedMessageProcessor
-    {
-        Task DeliveryToReadyQueue();
-
-        Task ConsumeReadyJob();
-    }
-
     public interface IDelayedMessageProcessor<T> : IDelayedMessageProcessor where T : Job
     {
     }
@@ -33,13 +27,11 @@ namespace DelayQueue
         public async Task DeliveryToReadyQueue()
         {
             var jobPool = new JobPool<T>();
-
-
+            
             var bucket = new Bucket();
 
             var readyQueue = new ReadyQueue<T>();
-
-
+            
             var topic = typeof(T).Name;
 
             while (true)
@@ -57,8 +49,6 @@ namespace DelayQueue
                     foreach (var jobId in jobIds)
                     {
                         var job = await jobPool.GetJobAsync(jobId);
-
-
                         if (job != null)
                         {
                             //add to ready queue
@@ -98,10 +88,18 @@ namespace DelayQueue
 
                     await jobPool.DelJobAsync(job.JobId);
 
-                    var message = new JobMessage<T>(job);
-                    using var scope = _serviceProvider.CreateScope();
-                    var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                    await mediator.Send(message);
+                    try
+                    {
+                        var message = new JobMessage<T>(job);
+                        using var scope = _serviceProvider.CreateScope();
+                        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                        await mediator.Send(message);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e,
+                            $"ConsumeReadyJob Error; Topic:{typeof(T).Name}; Job:{JsonConvert.SerializeObject(job)}");
+                    }
                 }
                 catch (Exception e)
                 {
